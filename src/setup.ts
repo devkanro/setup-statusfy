@@ -177,10 +177,10 @@ export async function generateIncident(
   }
 
   let filePath: string[] = ['.']
-  if(statusfy.content.dir) {
+  if (statusfy.content.dir) {
     filePath.push(statusfy.content.dir)
   } else {
-    filePath.push("content")
+    filePath.push('content')
   }
 
   if (locale && locale != statusfy.defaultLocale) {

@@ -3,7 +3,7 @@ import * as github from '@actions/github'
 import {currentRepo} from './utils'
 import {loadStatusfy} from './statusfy'
 import {generateIncident, setupLabels} from './setup'
-import simpleGit, {StatusResult} from 'simple-git'
+import simpleGit, {CommitResult, PushResult, StatusResult} from 'simple-git'
 
 async function run(): Promise<void> {
   let octokit = github.getOctokit(core.getInput('github-token'))
@@ -32,10 +32,25 @@ async function run(): Promise<void> {
     if (status.isClean()) {
       core.info(':ok_hand: No content update.')
     } else {
-      await git.commit(
-        `Update incident by #${github.context.issue.number} update`
+      let user = core.getInput('git-user')
+        ? core.getInput('git-user')
+        : github.context.actor
+      let email = core.getInput('git-email')
+        ? core.getInput('git-email')
+        : `${github.context.actor}@users.noreply.github.com`
+      let name = `${user} <${email}>`
+
+      core.startGroup(`:fork_and_knife: Create commit by '${name}'.`)
+      let commitResult: CommitResult = await git.commit(
+        `Update incident by #${github.context.issue.number} update`,
+        {
+          '--author': `"${name}"`
+        }
       )
-      await git.push('origin')
+      core.info(`Commit '${commitResult.commit}' created.`)
+      let pushResult: PushResult = await git.push('origin')
+      core.info(`Commit '${commitResult.commit}' pushed to ${pushResult.ref}.`)
+      core.endGroup()
       core.info(':ok_hand: Incident updated.')
     }
   } else {
