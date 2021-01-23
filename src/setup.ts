@@ -143,13 +143,16 @@ export async function generateIncident(
       if (!comment.body) continue
 
       const matches = comment.body.match(/#(.+)\n([\S\s]+)/i)
+      core.info(`Comment:\n${comment.body}`)
       if (matches) {
+        core.info('Create incident update.')
         updates.push({
           title: matches[1].trim(),
           description: matches[2].trim(),
           date: comment.updated_at
         })
       } else {
+        core.info('Create incident message.')
         contents.push(comment.body)
       }
     }
@@ -163,7 +166,7 @@ export async function generateIncident(
 
   result += '---yaml\n'
   result += yaml.dump(incident)
-  result += '\n---\n'
+  result += '---\n'
 
   if (contents.length > 0) {
     result += contents.join('\n')
