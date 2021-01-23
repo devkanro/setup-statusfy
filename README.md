@@ -18,12 +18,13 @@ steps:
 ## Demo
 
 See [The demo repository](https://github.com/devkanro/setup-statusfy-demo)
+See [The demo site](http://statusfy.higan.me)
 
 ## Features
-1. Manage labels of repository automatically.
-  This action will auto generate labels for your statusfy repository.
-2. Manage your incidents by GitHub issues.
-  Use GitHub as GUI for editing statusfy pages.
+1. Manage labels of repository automatically.  
+    This action will auto generate labels for your statusfy repository.
+2. Manage your incidents by GitHub issues.  
+    Use GitHub as GUI for editing statusfy pages.
 
 ## Quick Start
 
@@ -42,8 +43,8 @@ See [The demo repository](https://github.com/devkanro/setup-statusfy-demo)
 > npm install
 ```
 
-4. Add **setup-statusfy** Action
-  Create `.github/workflows/statusfy.yml`
+4. Add **setup-statusfy** Action  
+    Create `.github/workflows/statusfy.yml`
 ```yaml
 name: "Statusfy Incident"
 on:
@@ -63,8 +64,8 @@ jobs:
         branch: master
 ```
 
-5. Add **deploy** Action
-  Create `.github/workflows/deploy.yml`
+5. Add **deploy** Action  
+    Create `.github/workflows/deploy.yml`
 ```yaml
 name: "Deploy Statusfy"
 on:
