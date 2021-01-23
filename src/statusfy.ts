@@ -127,7 +127,7 @@ async function loadLocale(config: any): Promise<any> {
       links: {}
     }
 
-  let locale = `./locals/${defaultLocale.code}.json`
+  let locale = `./locales/${defaultLocale.code}.json`
   if (fs.existsSync(locale)) {
     let config = await fs.promises.readFile(locale, 'utf8')
     return JSON.parse(config)
