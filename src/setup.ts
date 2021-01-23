@@ -124,7 +124,6 @@ export async function generateIncident(
     severity: severity,
     affectedsystems: systems
   }
-  let contents: string[] = []
   let updates: IncidentUpdate[] = []
 
   let page = 1
@@ -142,15 +141,13 @@ export async function generateIncident(
 
       if (!comment.body) continue
 
-      let body = comment.body.split("\n")
-      if (body.length > 1 && body[0].startsWith("#")) {
+      let body = comment.body.split('\n')
+      if (body.length > 1 && body[0].startsWith('#')) {
         updates.push({
           title: body[0].substr(1).trim(),
-          description: body.slice(1).join("\n"),
+          description: body.slice(1).join('\n'),
           date: comment.updated_at
         })
-      } else {
-        contents.push(comment.body)
       }
     }
 
@@ -165,15 +162,13 @@ export async function generateIncident(
   result += yaml.dump(incident)
   result += '---\n'
 
-  if (contents.length > 0) {
-    result += contents.join('\n')
-    result += '\n'
-  }
+  result += issue.body
+  result += '\n\n'
 
   for (let update of updates) {
     result += `::: update ${update.title} | ${update.date}\n`
     result += update.description
-    result += `\n:::\n`
+    result += `\n:::\n\n`
   }
 
   let filePath: string[] = ['.']
