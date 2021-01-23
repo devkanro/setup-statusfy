@@ -1,0 +1,44 @@
+{
+  "name": "setup-statusfy",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Manage your statusfy page by GitHub issues and actions.",
+  "main": "lib/main.js",
+  "scripts": {
+    "format": "prettier --write **/*.ts",
+    "format-check": "prettier --check **/*.ts",
+    "lint": "eslint src/**/*.ts",
+    "build": "ncc build src/main.ts --out dist --minify",
+    "all": "npm run format && npm run lint && npm run build && npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ButterCam/setup-sisyphus-build.git"
+  },
+  "keywords": [
+    "statusfy",
+    "status page",
+    "github action"
+  ],
+  "author": "devkanro",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0",
+    "@actions/io": "^1.0.2",
+    "@iarna/toml": "^2.2.5",
+    "js-yaml": "^3.14.1",
+    "simple-git": "^2.31.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.20",
+    "@types/js-yaml": "^4.0.0",
+    "@types/node": "^12.7.12",
+    "@typescript-eslint/parser": "^4.14.0",
+    "@vercel/ncc": "^0.27.0",
+    "eslint": "^7.18.0",
+    "eslint-plugin-github": "^4.1.1",
+    "prettier": "^1.19.1",
+    "typescript": "^4.1.3"
+  }
+}

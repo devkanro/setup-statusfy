@@ -1,0 +1,9 @@
+name: 'Setup Statusfy'
+description: 'Manage your statusfy page by GitHub issues and actions.'
+inputs:
+  github-token:
+    description: 'Token to access GitHub APIs.'
+    required: true
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
