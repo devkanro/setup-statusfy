@@ -15,13 +15,13 @@ async function run(): Promise<void> {
   })
   let labelNames = labels.map(it => it.name)
 
-  core.startGroup(':label: Initializing labels of repository...')
+  core.startGroup('🏷️ Initializing labels of repository...')
   await setupLabels(statusfy, octokit, labelNames)
   core.endGroup()
 
   if (github.context.issue.number) {
     core.startGroup(
-      `:pencil2: Generating incident from #${github.context.issue.number}...`
+      `✏️ Generating incident from #${github.context.issue.number}...`
     )
     await generateIncident(statusfy, octokit, github.context.issue.number)
     core.endGroup()
@@ -38,14 +38,12 @@ async function run(): Promise<void> {
       let email = core.getInput('git-email')
         ? core.getInput('git-email')
         : `${github.context.actor}@users.noreply.github.com`
-      let name = `${user} <${email}>`
 
-      core.startGroup(`:fork_and_knife: Create commit by '${name}'.`)
+      core.startGroup(`🍴 Create commit by '${user} <${email}>'.`)
+      git.addConfig('user.name', user)
+      git.addConfig('user.email', email)
       let commitResult: CommitResult = await git.commit(
-        `Update incident by #${github.context.issue.number} update`,
-        {
-          '--author': `"${name}"`
-        }
+        `Update incident by #${github.context.issue.number} update`
       )
       core.info(`Commit '${commitResult.commit}' created.`)
       let pushResult: PushResult = await git.push('origin')
