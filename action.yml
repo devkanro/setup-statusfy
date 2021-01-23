@@ -4,6 +4,10 @@ inputs:
   github-token:
     description: 'Token to access GitHub APIs.'
     required: true
+  branch:
+    description: 'Target statusfy branch.'
+    required: false
+    default: "main"
   git-user:
     description: 'Git user name for creating commit.'
     required: false

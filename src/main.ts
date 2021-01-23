@@ -46,7 +46,9 @@ async function run(): Promise<void> {
         `Update incident by #${github.context.issue.number} update`
       )
       core.info(`Commit '${commitResult.commit}' created.`)
-      let pushResult: PushResult = await git.push('origin')
+      let branch = `HEAD:${core.getInput('branch')}`
+      core.info(`Push '${commitResult.commit}' to ${branch}.`)
+      let pushResult: PushResult = await git.push('origin', branch)
       core.info(`Commit '${commitResult.commit}' pushed to ${pushResult.ref}.`)
       core.endGroup()
       core.info(':ok_hand: Incident updated.')
