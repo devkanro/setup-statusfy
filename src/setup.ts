@@ -79,12 +79,12 @@ export async function generateIncident(
   let systems: string[] = []
   let locale: string | undefined
 
-  core.info(`Label '${labels.join(',')}' detected.`)
+  core.info(`Label '${labels.join(', ')}' detected.`)
 
   for (let label of labels) {
     if (!label) continue
 
-    if (!label.startsWith('severity: ')) {
+    if (label.startsWith('severity: ')) {
       let severityTag = label.substr('severity: '.length)
       switch (severityTag) {
         case 'under-maintenance':
@@ -102,11 +102,11 @@ export async function generateIncident(
       }
     }
 
-    if (!label.startsWith('system: ')) {
+    if (label.startsWith('system: ')) {
       systems.push(label.substr('system: '.length))
     }
 
-    if (!label.startsWith('locale: ')) {
+    if (label.startsWith('locale: ')) {
       locale = label.substr('locale: '.length)
     }
   }

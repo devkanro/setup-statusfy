@@ -110,8 +110,8 @@ async function loadConfig() {
   }
 
   if (fs.existsSync('./config.toml')) {
-   let config = await fs.promises.readFile('./config.toml', 'utf8')
-   return toml.parse(config)
+    let config = await fs.promises.readFile('./config.toml', 'utf8')
+    return toml.parse(config)
   }
 
   throw Error('Config not found')
