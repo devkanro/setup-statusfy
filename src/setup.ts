@@ -142,17 +142,14 @@ export async function generateIncident(
 
       if (!comment.body) continue
 
-      const matches = comment.body.match(/#(.+)\n([\S\s]+)/i)
-      core.info(`Comment:\n${comment.body}`)
-      if (matches) {
-        core.info('Create incident update.')
+      let body = comment.body.split("\n")
+      if (body.length > 1 && body[0].startsWith("#")) {
         updates.push({
-          title: matches[1].trim(),
-          description: matches[2].trim(),
+          title: body[0].substr(1).trim(),
+          description: body.slice(1).join("\n"),
           date: comment.updated_at
         })
       } else {
-        core.info('Create incident message.')
         contents.push(comment.body)
       }
     }
