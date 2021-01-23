@@ -47,8 +47,13 @@ async function run(): Promise<void> {
       )
       core.info(`Commit '${commitResult.commit}' created.`)
       let branch = `HEAD:${core.getInput('branch')}`
-      core.info(`Push '${commitResult.commit}' to ${branch}.`)
-      let pushResult: PushResult = await git.push('origin', branch)
+      let remote = `https://${github.context.actor}:${core.getInput(
+        'github-token'
+      )}@github.com/${github.context.repo.owner}/${
+        github.context.repo.repo
+      }.git`
+      core.info(`Push '${commitResult.commit}' to '${branch}' on '${remote}'.`)
+      let pushResult: PushResult = await git.push(remote, branch)
       core.info(`Commit '${commitResult.commit}' pushed to ${pushResult.ref}.`)
       core.endGroup()
       core.info(':ok_hand: Incident updated.')
