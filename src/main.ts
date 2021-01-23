@@ -46,7 +46,7 @@ async function run(): Promise<void> {
         `Update incident by #${github.context.issue.number} update`
       )
       core.info(`Commit '${commitResult.commit}' created.`)
-      let branch = `HEAD:${core.getInput('branch')}`
+      let branch = `HEAD:refs/heads/${core.getInput('branch')}`
       let remote = `https://${github.context.actor}:${core.getInput(
         'github-token'
       )}@github.com/${github.context.repo.owner}/${
