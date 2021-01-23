@@ -43,7 +43,7 @@ async function run(): Promise<void> {
       git.addConfig('user.name', user)
       git.addConfig('user.email', email)
       let commitResult: CommitResult = await git.commit(
-        `Update incident by #${github.context.issue.number} update`
+        `:memo: Update incident by #${github.context.issue.number} update`
       )
       core.info(`Commit '${commitResult.commit}' created.`)
       let branch = `HEAD:refs/heads/${core.getInput('branch')}`
