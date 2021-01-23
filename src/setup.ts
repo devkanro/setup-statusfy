@@ -142,7 +142,7 @@ export async function generateIncident(
 
       if (!comment.body) continue
 
-      const matches = comment.body.match(/```#(.+)\n---\n([\S\s]+)```/i)
+      const matches = comment.body.match(/#(.+)\n([\S\s]+)/i)
       if (matches) {
         updates.push({
           title: matches[1].trim(),
