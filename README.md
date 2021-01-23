@@ -17,7 +17,7 @@ steps:
 
 ## Demo
 
-See [The demo repository](https://github.com/devkanro/setup-statusfy-demo)
+See [The demo repository](https://github.com/devkanro/setup-statusfy-demo)  
 See [The demo site](http://statusfy.higan.me)
 
 ## Features
@@ -62,6 +62,16 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         branch: master
+    - name: Build the static site.
+      run: |
+        npm install
+        npm run generate
+    - name: Publish the static site to GitHub Pages.
+      uses: jamesives/github-pages-deploy-action@releases/v3
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: dist
 ```
 
 5. Add **deploy** Action  
@@ -88,3 +98,12 @@ jobs:
           BRANCH: gh-pages
           FOLDER: dist
 ```
+6. Create incident issue  
+  Create a issue with `severity: XXXX` label and `system: XXXX` labels, this action will create a incident markdown file and commit it to configured branch.
+7. Update incident  
+  Comment on issue will update the incident, you must be follow the update format.
+```Markdown
+# <!--Title here!!!-->
+<!--Content here!!!-->
+```
+8. Close issue to resolve the incident.
