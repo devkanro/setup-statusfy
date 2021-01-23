@@ -176,7 +176,13 @@ export async function generateIncident(
     result += `\n:::\n`
   }
 
-  let filePath: string[] = ['.', statusfy.content.dir]
+  let filePath: string[] = ['.']
+  if(statusfy.content.dir) {
+    filePath.push(statusfy.content.dir)
+  } else {
+    filePath.push("content")
+  }
+
   if (locale && locale != statusfy.defaultLocale) {
     filePath.push(locale)
   }

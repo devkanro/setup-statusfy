@@ -43,4 +43,6 @@ async function run(): Promise<void> {
   }
 }
 
-run()
+run().catch(error => {
+  core.setFailed(error)
+})
